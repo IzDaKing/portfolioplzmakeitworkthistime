@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ismaël Ndiaye</title>
+    <style>
+        @font-face {
+            font-family: Inter;
+            src: url(./fonts/Inter-Italic-VariableFont_opsz\,wght.ttf) format("truetype");
+        }
+        @font-face {
+            font-family: Montserrat;
+            src: url(./fonts/Montserrat-VariableFont_wght.ttf) format("truetype");
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-image: url(icons/andrei-castanha-0QQPipjaJgY-unsplash.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed; /* Keeps background still when scrolling */
+        }
+
+        section {
+            padding: 60px;
+        }
+
+        p {
+            margin-top: 10px;
+            font-family: Montserrat;
+            color: #fffffff6;
+            font-size: 14px;
+        }
+
+        li {
+            list-style: none;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .me {
+            margin-top: 120px;
+            padding-left: 60px;
+            position: absolute;
+            top: 0;
+            width: 40%;
+            font-family: Inter;
+            text-align: left;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            overflow-y: auto;
+            height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-family: Inter;
+            font-size: 18px;
+            color: #fffffff6;
+        }
+
+        h2 {
+            font-family: Inter;
+            font-size: 16px;
+            color: #fffffff6;
+        }
+
+        .flexbox {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+        }
+
+        .card {
+            position: relative;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.4s ease;
+            overflow: hidden;
+            flex: 1 1 250px; /* Allows the card to grow/shrink, with a base width */
+        }
+
+        .card img, video {
+            width: 120px;
+            transition: 0.4s;
+            max-width: 100%;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 60%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -80%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.09) 50%, transparent 80%);
+            transform: skewX(-15deg);
+            transition: left 0s ease;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px) saturate(1.5);
+            -webkit-backdrop-filter: blur(20px) saturate(1.5);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover::after {
+            left: 130%;
+            transition: left 0.55s ease;
+        }
+
+        .card:hover img, .card:hover video {
+            transform: scale(1.1);
+        }
+
+        .avatar {
+            transform: scale(1);
+            transition: transform 0.4s ease;
+            position: absolute;
+            left: 60px;
+            top: 320px;
+            width: 250px;
+            border-radius: 50%;
+            padding: 20px;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+        }
+
+        p.glass-p {
+            position: relative;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: 0.3s ease;
+            overflow: hidden;
+        }
+
+        p.glass-p:hover {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(14px) saturate(1.5);
+            -webkit-backdrop-filter: blur(14px) saturate(1.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow:
+                0 4px 20px rgba(0,0,0,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.12);
+            transform: translateX(5px);
+        }
+
+        .icons-flexbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-section {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-header {
+            margin-bottom: 32px;
+            padding-left: 28px;
+            border-left: 2px solid #ffffff;
+        }
+
+        .timeline-header-label {
+            font-size: 10px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #ffffff99;
+            font-family: Montserrat;
+            margin-bottom: 6px;
+        }
+
+        .timeline-header-title {
+            font-family: 'Inter', serif;
+            font-size: clamp(18px, 3vw, 26px);
+            font-weight: 700;
+            line-height: 1.2;
+            color: #f5f0e8;
+        }
+
+        .timeline-track {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, #ffffff 0%, #ffffff55 70%, transparent 100%);
+        }
+
+        .t-entry {
+            position: relative;
+            margin-bottom: 24px;
+            animation: tFadeUp 0.6s ease both;
+        }
+
+        .t-entry:nth-child(1) { animation-delay: 0.1s; }
+        .t-entry:nth-child(2) { animation-delay: 0.25s; }
+        .t-entry:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes tFadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .t-entry::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 18px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #0a0a0a;
+            border: 2px solid #ffffff;
+            transition: background 0.2s, box-shadow 0.2s;
+            z-index: 1;
+        }
+
+        .t-entry:hover::before {
+            background: #ffffff;
+            box-shadow: 0 0 10px #ffffff88;
+        }
+
+        .t-inner {
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+            border-color 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+            box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+            transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .t-inner:hover,
+        .t-entry:hover .t-inner {
+            background: rgba(255, 255, 255, 0.07) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.04) !important;
+            backdrop-filter: blur(14px) saturate(1.5) !important;
+            transform: translateX(5px) !important;
+        }
+
+        .t-date {
+            display: inline-block;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #ffffffbb;
+            border: 1px solid #ffffff33;
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-bottom: 6px;
+            font-family: Montserrat;
+        }
+
+        .t-title {
+            font-family: 'Inter';
+            font-size: 15px;
+            font-weight: 700;
+            color: #f5f0e8;
+            line-height: 1.3;
+            margin-bottom: 3px;
+        }
+
+        .t-institution {
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: #7a7060;
+            font-family: Montserrat;
+        }
+
+        .skills {
+            width: 100%;
+            max-width: 340px;
+            margin-top: 16px;
+        }
+
+        .skill {
+            margin-bottom: 22px;
+        }
+
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .skill-name {
+            color: #ffffff;
+            font-family: Montserrat;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .skill-pct {
+            color: #ffffff66;
+            font-family: Montserrat;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+        }
+
+        .bar {
+            background: rgba(255,255,255,0.06);
+            border-radius: 999px;
+            overflow: hidden;
+            height: 6px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .fill {
+            height: 100%;
+            width: 0;
+            border-radius: 999px;
+            animation: barGrow 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            position: relative;
+        }
+        
+        @keyframes barGrow {
+            from { width: 0; }
+        }
+
+        .fill.html { width: 90%; background: linear-gradient(90deg, #444 0%, #ffffff 100%); animation-delay: 0.1s; }
+        .fill.css { width: 80%; background: linear-gradient(90deg, #333 0%, #dddddd 100%); animation-delay: 0.25s; }
+        .fill.c { width: 70%; background: linear-gradient(90deg, #2a2a2a 0%, #888888 100%); animation-delay: 0.4s; }
+        .fill.python { width: 60%; background: linear-gradient(90deg, #2a2a2a 0%, #aaaaaa 100%); animation-delay: 0.55s; }
+       
+        .glass-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+
+        .glass-form input,
+        .glass-form textarea {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: white;
+            font-family: Montserrat;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .glass-form input:focus,
+        .glass-form textarea:focus {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .glass-form button {
+            padding: 12px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-family: Montserrat;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-form button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .socials {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .glass-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s ease;
+        }
+
+        .glass-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255,255,255,0.25);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .glass-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 25px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(14px) saturate(1.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+            z-index: 1000;
+        }
+
+        .glass-nav ul {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .glass-nav a {
+            position: relative;
+            font-family: Montserrat;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ffffffcc;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        .glass-nav a:hover {
+            color: #ffffff;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 992px) {
+            .me {
+                position: relative;
+                width: 100%;
+                margin-top: 100px;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .avatar {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 20px auto;
+                display: block;
+                width: 200px;
+            }
+
+            .content {
+                position: relative;
+                width: 100%;
+                height: auto;
+                overflow-y: visible;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+
+            .glass-nav {
+                width: 90%;
+                padding: 10px;
+                overflow-x: auto; 
+                white-space: nowrap;
+            }
+
+            .glass-nav ul {
+                gap: 15px;
+                justify-content: center;
+            }
+            
+            .skills {
+                margin: 0 auto;
+            }
+            
+            .glass-form {
+                margin: 20px auto;
+            }
+            
+            .socials .flexbox {
+                justify-content: center; 
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <nav class="glass-nav">
+            <ul>
+                <li><a href="#apropos">A-propos</a></li>
+                <li><a href="#parcours">Formation</a></li>
+                <li><a href="#experiences">Expériences</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="me">
+        <h1>Ismaël Ndiaye</h1>
+        <h2>Etudiant en Licence 1 Génie Logiciel et Administration Réseau</h2>
+        <p class="glass-p">
+            Passionné par le digital, je crée avec simplicité et efficacité. <br>
+            Je présente ici mes projets et mon évolution. <br>
+            Toujours en quête d'amélioration, je vise l'excellence.
+        </p>
+        <img src="icons/BeautyPlus-AI_FILTER-2026-03-25T23_25_50-1774481150470.jpg" alt="avatar" class="avatar">
+    </div>
+
+    <section class="content">
+        <section class="apropos">
+            <div class="paragraph">
+                <h1 id="apropos">À Propos</h1>
+                <p class="glass-p">Je suis Ismaël Ndiaye, étudiant en licence 1 Génie Logiciel et Administration Réseau (L1 GLAR) à l'ESTM. <br>
+                    Actuellement en première année, je suis passionné par le développement web et la création de projets digitaux.
+                    J'ai acquis des compétences en HTML, CSS, C, et Python, et je suis constamment à la recherche de nouvelles technologies pour améliorer mes compétences. <br>
+                    Quelques projets que j'ai réalisés incluent un site web du stade Abdoulaye Wade pour le présenter, quelques programmes de calculs en C et <br>
+                    Mon objectif est de devenir un ingénieur logiciel compétent, capable de créer des programmes et applications efficaces et esthétiques. <br>
+                    En dehors de mes études, je suis un passionné de football, ce qui m'aide à développer des compétences en travail d'équipe et en discipline.
+                    Je suis également un grand amateur de musique, ce qui stimule ma créativité et m'inspire dans mes projets. <br>
+                </p>
+            </div>
+
+            <div class="paragraph" style="margin-top: 40px;">
+                <div class="timeline-section">
+                    <div class="timeline-header">
+                        <div class="timeline-header-label">Parcours Académique</div>
+                        <div class="timeline-header-title" id="parcours">Formation &amp; Éducation</div>
+                    </div>
+
+                    <div class="timeline-track">
+                        <div class="t-entry">
+                            <div class="t-inner">
+                                <div class="t-date">2025 – 2026</div>
+                                <div class="t-title">L1 Génie Logiciel &amp; Administration Réseau</div>
+                                <div class="t-institution">ESTM · GLAR</div>
+                            </div>
+                        </div>
+
+                        <div class="t-entry">
+                            <div class="t-inner">
+                                <div class="t-date">2025</div>
+                                <div class="t-title">Initiation à l'Informatique</div>
+                                <div class="t-institution">Formation complémentaire</div>
+                            </div>
+                        </div>
+
+                        <div class="t-entry">
+                            <div class="t-inner">
+                                <div class="t-date">2024 – 2025</div>
+                                <div class="t-title">Baccalauréat · Série L2</div>
+                                <div class="t-institution">Collège Saint François d'Assise · Rufisque</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 id="experiences">Expériences</h1>
+            <div class="skills">
+                <div class="skill">
+                    <div class="skill-label">
+                        <span class="skill-name">HTML</span>
+                        <span class="skill-pct">90%</span>
+                    </div>
+                    <div class="bar"><div class="fill html"></div></div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-label">
+                        <span class="skill-name">CSS</span>
+                        <span class="skill-pct">80%</span>
+                    </div>
+                    <div class="bar"><div class="fill css"></div></div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-label">
+                        <span class="skill-name">C</span>
+                        <span class="skill-pct">70%</span>
+                    </div>
+                    <div class="bar"><div class="fill c"></div></div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-label">
+                        <span class="skill-name">Python</span>
+                        <span class="skill-pct">60%</span>
+                    </div>
+                    <div class="bar"><div class="fill python"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="paragraph">
+                <h1 id="projects">Projets</h1>
+
+                <div class="flexbox">
+                    <div class="card">
+                        <video src="videos/Stade Abdoulaye Wade – Brave 2026-03-26 05-10-47.mp4" playsinline autoplay loop muted type="video/mp4" style="width: 100%; border-radius: 10px;"></video>
+                        <h2>Site Web du Stade Abdoulaye Wade</h2>
+                        <p>Site vitrine dédié au stade Abdoulaye Wade, mettant en avant son architecture, ses infrastructures et son importance dans le sport sénégalais.</p>
+                        <p><strong>HTML</strong> & <strong>CSS</strong></p>
+                    </div>
+
+                    <div class="card">
+                        <video src="videos/Ismaël – Brave 2026-03-26 05-19-39.mp4" playsinline autoplay loop muted type="video/mp4" style="width: 100%; border-radius: 10px;"></video>
+                        <h2>Portfolio v1</h2>
+                        <p><strong>HTML</strong> & <strong>CSS</strong></p>
+                        <p>Première version de mon portfolio, conçue pour présenter mon profil et mes contacts</p>
+                    </div>
+
+                    <div class="card">
+                        <video src="videos/Document – Brave 2026-03-26 05-23-15.mp4" playsinline autoplay loop muted type="video/mp4" style="width: 100%; border-radius: 10px;"></video>
+                        <h2>Portfolio v2</h2>
+                        <p>Version améliorée de mon portfolio avec un design moderne un radial gradient, mes compétences, mon experience et mes contacts.</p>
+                        <p><strong>HTML</strong> & <strong>CSS</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paragraph" style="margin-top: 60px;">
+                <h1 id="contact">Contact</h1>
+
+                <form class="glass-form">
+                    <input type="text" placeholder="Prénom & Nom" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Votre message" rows="4"></textarea>
+                    <button type="submit">Soumettre</button>
+                </form>
+            </div>
+            
+            <div class="socials">
+                <div class="flexbox" style="margin-top: 0;">
+                    <a href="https://www.instagram.com/plaquemakkrr/" class="glass-icon">
+                        <img src="icons/instagram.png" alt="Instagram" width="18px">
+                    </a>
+
+                    <a href="https://snapchat.com/t/0D5sp5is" class="glass-icon">
+                        <img src="icons/snapchat.png" alt="Snapchat" width="18px">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </section>
+
+</body>
+</html>
